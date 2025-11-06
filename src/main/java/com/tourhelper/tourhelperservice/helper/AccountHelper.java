@@ -19,7 +19,7 @@ public class AccountHelper {
                 (StringUtils.isBlank(accountDto.getEmailId()) || !validateEmail(accountDto.getEmailId()))){
             throw new InvalidArgumentException("Invalid Email Id");
         } else if (StringUtils.isBlank(accountDto.getEmailId()) &&
-                StringUtils.isBlank(accountDto.getUserName()) || validateUserName(accountDto.getUserName())) {
+                (StringUtils.isBlank(accountDto.getUserName()) || validateUserName(accountDto.getUserName()))) {
             throw new InvalidArgumentException("Invalid User Name");
         }
         if(StringUtils.isBlank(accountDto.getPassword()) || accountDto.getPassword().length()<8){
