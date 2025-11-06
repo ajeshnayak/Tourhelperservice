@@ -27,8 +27,17 @@ public class AccountDAO {
         return accountDto;
     }
 
+    public void deleteAccount(AccountDto accountDto){
+        accountRepository.deleteById(accountDto.getUserGuid());
+    }
+
     public boolean isAccountPresent(AccountDto accountDto) {
         Optional<Account> account= Optional.ofNullable(accountRepository.findByEmailId(accountDto.getEmailId()));
+        return account.isPresent();
+    }
+
+    public boolean isAccountPresentByGUID(AccountDto accountDto) {
+        Optional<Account> account= accountRepository.findById(accountDto.getUserGuid());
         return account.isPresent();
     }
 }
