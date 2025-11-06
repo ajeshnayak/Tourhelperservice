@@ -3,6 +3,7 @@ package com.tourhelper.tourhelperservice.service;
 import com.tourhelper.tourhelperservice.dao.AccountDAO;
 import com.tourhelper.tourhelperservice.dto.AccountDto;
 import com.tourhelper.tourhelperservice.exception.AccountAlreadyExistException;
+import com.tourhelper.tourhelperservice.exception.AccountDoesnotExistException;
 import com.tourhelper.tourhelperservice.helper.AccountHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,15 @@ public class AccountService {
         String encodedString = new String(encodedBytes);
         accountDto.setPassword(encodedString);
 
+    }
+
+    public AccountDto deleteAccount(AccountDto accountDto) throws AccountDoesnotExistException {
+        accountHelper.validateDeleteAccount(accountDto);
+        if(!accountDAO.isAccountPresentByGUID(accountDto)){
+            throw new AccountDoesnotExistException("ACCOUNT_DOES_NOT_EXIST");
+        }
+        accountDAO.deleteAccount(accountDto);
+        return accountDto;
     }
 
 }

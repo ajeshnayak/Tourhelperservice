@@ -1,6 +1,7 @@
 package com.tourhelper.tourhelperservice.controller.advice;
 
 import com.tourhelper.tourhelperservice.exception.AccountAlreadyExistException;
+import com.tourhelper.tourhelperservice.exception.AccountDoesnotExistException;
 import com.tourhelper.tourhelperservice.exception.InvalidArgumentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,10 @@ public class CommonControllerAdvice {
     }
     @ExceptionHandler(InvalidArgumentException.class)
     public ResponseEntity<String> InvalidArgumentException(InvalidArgumentException ex){
+        return new ResponseEntity<>( ex.getMessage(), HttpStatus.OK);
+    }
+    @ExceptionHandler(AccountDoesnotExistException.class)
+    public ResponseEntity<String> AccountDoesnotExistException(AccountDoesnotExistException ex){
         return new ResponseEntity<>( ex.getMessage(), HttpStatus.OK);
     }
 }

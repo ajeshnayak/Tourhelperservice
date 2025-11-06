@@ -18,7 +18,8 @@ public class AccountHelper {
         if(StringUtils.isBlank(accountDto.getUserName()) &&
                 (StringUtils.isBlank(accountDto.getEmailId()) || !validateEmail(accountDto.getEmailId()))){
             throw new InvalidArgumentException("Invalid Email Id");
-        } else if (StringUtils.isBlank(accountDto.getUserName()) || validateUserName(accountDto.getUserName())) {
+        } else if (StringUtils.isBlank(accountDto.getEmailId()) &&
+                StringUtils.isBlank(accountDto.getUserName()) || validateUserName(accountDto.getUserName())) {
             throw new InvalidArgumentException("Invalid User Name");
         }
         if(StringUtils.isBlank(accountDto.getPassword()) || accountDto.getPassword().length()<8){
@@ -26,6 +27,13 @@ public class AccountHelper {
         }
 
     }
+
+    public void validateDeleteAccount(AccountDto accountDto) {
+        if (StringUtils.isBlank(accountDto.getUserGuid())) {
+            throw new InvalidArgumentException("Empty User Guid");
+        }
+    }
+
     public static boolean validateEmail(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
