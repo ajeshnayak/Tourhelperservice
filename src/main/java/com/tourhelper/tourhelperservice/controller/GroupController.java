@@ -17,9 +17,6 @@ public class GroupController {
     @Autowired
     GroupService groupService;
 
-    @Autowired
-    GroupDAO groupDAO;
-
     @PostMapping("/create")
     public GroupDto createGroup(@RequestBody GroupDto groupDto) throws GroupAlreadyExistException {
         return groupService.createGroup(groupDto);
