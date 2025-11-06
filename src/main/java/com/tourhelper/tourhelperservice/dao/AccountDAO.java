@@ -1,11 +1,14 @@
 package com.tourhelper.tourhelperservice.dao;
 
 import com.tourhelper.tourhelperservice.dto.AccountDto;
+import com.tourhelper.tourhelperservice.dto.GroupDto;
 import com.tourhelper.tourhelperservice.entity.Account;
 import com.tourhelper.tourhelperservice.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.tourhelper.tourhelperservice.constant.CommonConstants.ACTIVE;
@@ -39,5 +42,21 @@ public class AccountDAO {
     public boolean isAccountPresentByGUID(AccountDto accountDto) {
         Optional<Account> account= accountRepository.findById(accountDto.getUserGuid());
         return account.isPresent();
+    }
+
+    public void addGrouptoAccount(GroupDto groupDto) {
+        Optional<Account> account=accountRepository.findById(groupDto.getOwner());
+        account.ifPresent(value -> {
+            List<String> groupIds = Optional.ofNullable(value.getGroupGuids())
+                    .orElseGet(() -> {
+                        List<String> newList = new ArrayList<>();
+                        value.setGroupGuids(newList);
+                        return newList;
+                    });
+            groupIds.add(groupDto.getGroupId());
+            value.setGroupGuids(groupIds);
+            accountRepository.save(value);
+        });
+
     }
 }

@@ -15,5 +15,5 @@ public class Account {
     String userName;
     String password;
     String userStatus;
-    List<Integer> groupIds;
+    List<String> groupGuids;
 }

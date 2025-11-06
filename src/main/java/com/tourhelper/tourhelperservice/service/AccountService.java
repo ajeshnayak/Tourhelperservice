@@ -2,6 +2,7 @@ package com.tourhelper.tourhelperservice.service;
 
 import com.tourhelper.tourhelperservice.dao.AccountDAO;
 import com.tourhelper.tourhelperservice.dto.AccountDto;
+import com.tourhelper.tourhelperservice.dto.GroupDto;
 import com.tourhelper.tourhelperservice.exception.AccountAlreadyExistException;
 import com.tourhelper.tourhelperservice.exception.AccountDoesnotExistException;
 import com.tourhelper.tourhelperservice.helper.AccountHelper;
@@ -55,4 +56,7 @@ public class AccountService {
         return accountDto;
     }
 
+    public void addGrouptoUser(GroupDto groupDto) {
+        accountDAO.addGrouptoAccount(groupDto);
+    }
 }
