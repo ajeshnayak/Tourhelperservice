@@ -16,4 +16,16 @@ public class GroupHelper {
             throw new InvalidArgumentException("EMPTY_OWNER_DETAILS");
         }
     }
+
+    public void validateAddMemberData(GroupDto groupDto) {
+        if(groupDto.getMembers().isEmpty()){
+            throw new InvalidArgumentException("EMPTY_MEMBER_LIST");
+        }
+        if(StringUtils.isBlank(groupDto.getGroupGuid())){
+            throw new InvalidArgumentException("EMPTY_GROUP_ID");
+        }
+        if(StringUtils.isBlank(groupDto.getOwner())){
+            throw new InvalidArgumentException("EMPTY_GROUP_OWNER");
+        }
+    }
 }

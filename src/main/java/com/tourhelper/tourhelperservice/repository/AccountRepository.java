@@ -1,11 +1,15 @@
 package com.tourhelper.tourhelperservice.repository;
 
-import com.tourhelper.tourhelperservice.entity.Account;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.tourhelper.tourhelperservice.entity.UserAccount;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AccountRepository extends MongoRepository<Account,String> {
+public interface AccountRepository extends CrudRepository<UserAccount,String> {
 
-    Account findByEmailId(String emailId);
+    UserAccount findByEmailId(String emailId);
+
+    @Query(value = "SELECT * FROM user_account ORDER BY CREATED DESC LIMIT 1", nativeQuery = true)
+    UserAccount getLastUserId();
 }

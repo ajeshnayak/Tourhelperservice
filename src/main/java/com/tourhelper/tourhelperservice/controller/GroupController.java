@@ -1,6 +1,5 @@
 package com.tourhelper.tourhelperservice.controller;
 
-import com.tourhelper.tourhelperservice.dao.GroupDAO;
 import com.tourhelper.tourhelperservice.dto.GroupDto;
 import com.tourhelper.tourhelperservice.exception.GroupAlreadyExistException;
 import com.tourhelper.tourhelperservice.service.GroupService;
@@ -20,5 +19,10 @@ public class GroupController {
     @PostMapping("/create")
     public GroupDto createGroup(@RequestBody GroupDto groupDto) throws GroupAlreadyExistException {
         return groupService.createGroup(groupDto);
+    }
+
+    @PostMapping("/addmember")
+    public GroupDto addMember(@RequestBody GroupDto groupDto) throws GroupAlreadyExistException {
+        return groupService.addMember(groupDto);
     }
 }

@@ -24,12 +24,22 @@ public class GroupService {
 
     public GroupDto createGroup(GroupDto groupDto) throws GroupAlreadyExistException {
         groupHelper.validateCreateGroupData(groupDto);
-        groupDto.setGroupId(UUID.randomUUID().toString());
+        groupDto.setGroupGuid(UUID.randomUUID().toString());
         if(groupDAO.isGroupPresent(groupDto)){
-                throw new GroupAlreadyExistException("GROUP_ALREADY_EXIST");
+            throw new GroupAlreadyExistException("GROUP_ALREADY_EXIST");
         }
         groupDAO.createGroup(groupDto);
+        accountService.addGrouptoOwner(groupDto);
+        return groupDto;
+    }
+
+    public GroupDto addMember(GroupDto groupDto) throws GroupAlreadyExistException {
+        groupHelper.validateAddMemberData(groupDto);
+        if(!groupDAO.isGroupPresentbyGroupId(groupDto)){
+            throw new GroupAlreadyExistException("GROUP_DOES_NOT_EXIST");
+        }
         accountService.addGrouptoUser(groupDto);
+      //  groupDAO.addUsertoGroup(groupDto);
         return groupDto;
     }
 }
