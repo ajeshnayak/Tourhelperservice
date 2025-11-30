@@ -49,7 +49,7 @@ public class AccountDAO {
     public int getLastUserId(){
         UserAccount userAccount= accountRepository.getLastUserId();
         if(userAccount == null){
-            return 0;
+            return 100000;
         }
         return userAccount.getUserId();
     }
