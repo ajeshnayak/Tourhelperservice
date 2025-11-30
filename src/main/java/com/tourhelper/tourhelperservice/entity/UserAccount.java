@@ -32,7 +32,7 @@ public class UserAccount {
     Integer userId;
 
     @Column(name = "created")
-    Date created;
+    Timestamp created;
 
     @Column(name = "last_updated")
     Timestamp lastUpdated;

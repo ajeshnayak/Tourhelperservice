@@ -26,7 +26,7 @@ public class AccountDAO {
         account.setUserGuid(accountDto.getUserGuid());
         account.setUserName(accountDto.getUserName());
         account.setUserId(accountDto.getUserId());
-        account.setCreated(Date.valueOf(LocalDate.now()));
+        account.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         account.setLastUpdated(Timestamp.valueOf(LocalDateTime.now()));
         accountRepository.save(account);
         return accountDto;

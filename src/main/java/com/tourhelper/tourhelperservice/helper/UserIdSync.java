@@ -14,8 +14,10 @@ public class UserIdSync {
     public synchronized Integer increment() {
         if(userId == null){
             userId = accountDAO.getLastUserId();
-        }
-        return userId+1;
+            userId ++;
+        } else
+            userId++;
+        return userId;
     }
 
 }
